@@ -7,18 +7,34 @@ using System.Threading.Tasks;
 namespace Bitmon
 {
     public abstract class Bitmon
-    {   
-        
-        protected int x;
-        protected int y;
-        protected int permanencia;
+    {
+        public double tiempoVida;
+        public double tiempoVidaPerdido=0;
+        public int mesesDeVida = 0;
+        public double puntosVida;
+        public double puntosVidaOriginal;
+        public int puntosAtaque;
+        public string tipo;
+        public bool seMovio = false;
+        public List<string> terrenosafin;
+        public List<string> terrenosdebil;
+        public bool yaPeleo = false;
+        public Dictionary<string, double> enemigos;
+        public List<string> bitmonsAfines;
+        public int cantidadDeHijos= 0;
+        public bool yaSeReprodujo = false;
+        public int numeroNacimientos = 0;
+
 
         public Bitmon()
         {
-            
+
         }
 
-        public abstract void movimiento();
+        public abstract int[] moverse(Terreno terreno,Johto region,int direccionMov);
+        public abstract void pelear(Terreno terreno,Bitmon peleador);
+        public abstract void breed(Johto region, Terreno terreno, Bitmon reproductor);
         public abstract string getTipo();
+        public abstract void transformarTerreno(Terreno terreno);
     }
 }

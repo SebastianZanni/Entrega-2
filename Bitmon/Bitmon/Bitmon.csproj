@@ -43,17 +43,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bitmon.cs" />
-    <Compile Include="Bitmonlandia.cs" />
+    <Compile Include="Paraiso.cs" />
     <Compile Include="Dorvalo.cs" />
     <Compile Include="Doti.cs" />
     <Compile Include="Ent.cs" />
     <Compile Include="Gofue.cs" />
     <Compile Include="Johto.cs" />
+    <Compile Include="MapasConsola.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Simulador.cs" />
     <Compile Include="Taplan.cs" />
     <Compile Include="Terreno.cs" />
+    <Compile Include="TerrenosConsola.cs" />
     <Compile Include="TiposBitmons.cs" />
     <Compile Include="Wetar.cs" />
   </ItemGroup>

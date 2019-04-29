@@ -10,93 +10,98 @@ namespace Bitmon
     {
         static void Main(string[] args)
 
-        {
+        {   //Creacion de las 3 cofiguraciones, con mapa y bitmons correspondientes.
+            Johto config1 = new Johto(0, 3, 3);
+            Johto config2 = new Johto(1, 4, 4);
+            Johto config3 = new Johto(2, 5, 5);
+            config1.crearMapa();
+            config2.crearMapa();
+            config3.crearMapa();
+            config1.crearBitmons();
+            config2.crearBitmons();
+            config3.crearBitmons();
 
-            // Definicion de terrenos,region y mundoBitmons
+            string opcion1 = "[Opción 1] Dimesiones mapa: 3x3, Terrenos(N° Bitmons iniciales): \n\n";
+            string opcion2 = "[Opción 2] Dimesiones mapa: 4x4, Terrenos(N° Bitmons iniciales): \n\n";
+            string opcion3 = "[Opción 3] Dimesiones mapa: 5x5, Terrenos(N° Bitmons iniciales): \n\n";
 
-            Bitmonlandia mundoBitmon = new Bitmonlandia();
-            //Johto Region1 = new Johto("Config1",5,5);
-            Johto Region2 = new Johto("Config2", 3, 3);
-            //Johto Region3 = new Johto("Config3", 10, 10);
-
-            //Se agregan los terrenos existentes al mapa y se crea el mapa
-
-            ////Region1.crearMapa();
-
-            Region2.crearMapa();
-
-            ////Region3.crearMapa();
-
-
-            //crearBitmons(Region1);
-            crearBitmons(Region2);
-            //crearBitmons(Region3);
-
-
-
-            //Crear y seleccionar configuraciones
-
-
-
-            foreach (Terreno terreno in Region2.mapaRegion)
+            int contadorfila = 0;
+            foreach (Terreno terreno in config1.mapaRegion)
             {
-                Console.WriteLine(terreno.getTipo());
-                Console.WriteLine("*****************");
-                foreach (Bitmon bitmon in terreno.bitmonsTerreno)
+                opcion1 += terreno.getTipoAbrev() + "(" + terreno.numBitmons() + ") - ";
+                contadorfila++;
+                if (contadorfila%3 == 0)
                 {
-
-                    Console.WriteLine(bitmon.getTipo());
-                 }
-
-                Console.WriteLine("*****************");
-                Console.WriteLine("*****************");
-            }
-            Console.WriteLine("\n");
-            Console.ReadKey();
-        }
-
-
-
-        //Simulador simulador = new Simulador(Region,mundoBitmon);
-
-
-        public static void crearBitmons(Johto region)
-        {
-
-            Random random = new Random();
-            TiposBitmons tipos = new TiposBitmons();
-            foreach (Terreno terrenoRegion in region.mapaRegion)
-            {
-                int numBitmons = random.Next(0, 2);
-
-                for (int i = 0; i <= numBitmons; i++)
-                {
-                    int randomBitmon = random.Next(0, 6);
-                    string tipoBitmon = tipos.tipo[randomBitmon];
-
-                    switch (tipoBitmon)
-                    {
-                        case "Dorvalo":
-                            terrenoRegion.bitmonsTerreno.Add(new Dorvalo());
-                            break;
-                        case "Doti":
-                            terrenoRegion.bitmonsTerreno.Add(new Doti());
-                            break;
-                        case "Ent":
-                            terrenoRegion.bitmonsTerreno.Add(new Ent());
-                            break;
-                        case "Gofue":
-                            terrenoRegion.bitmonsTerreno.Add(new Gofue());
-                            break;
-                        case "Taplan":
-                            terrenoRegion.bitmonsTerreno.Add(new Taplan());
-                            break;
-                        case "Wetar":
-                            terrenoRegion.bitmonsTerreno.Add(new Wetar());
-                            break;
-                    }
+                    opcion1=opcion1.Substring(0,opcion1.Length-2);
+                    opcion1 += "\n";
                 }
             }
+            contadorfila = 0;
+            foreach (Terreno terreno in config2.mapaRegion)
+            {
+                opcion2 += terreno.getTipoAbrev() + "(" + terreno.numBitmons() + ") - ";
+                contadorfila++;
+                if (contadorfila % 4 == 0)
+                {
+                    opcion2 = opcion2.Substring(0, opcion2.Length - 2);
+                    opcion2 += "\n";
+                }
+            }
+            contadorfila = 0;
+            foreach (Terreno terreno in config3.mapaRegion)
+            {
+                opcion3 += terreno.getTipoAbrev() + "(" + terreno.numBitmons() + ") - ";
+                contadorfila++;
+                if (contadorfila % 5 == 0)
+                {
+                    opcion3 = opcion3.Substring(0, opcion3.Length - 2);
+                    opcion3 += "\n";
+                }
+            }
+
+            // Definicion de terrenos,region y mundoBitmons
+           // Console.WindowWidth = 90;
+            //Console.WindowHeight = 50;
+            Console.SetWindowPosition(0, 0);
+
+            MapasConsola mapas = new MapasConsola();
+            Console.WriteLine(mapas.logo);
+            Console.WriteLine("Configuraciones iniciales disponibles: \n");
+            Console.WriteLine("\nTipos Terreno--> Ac=Acuatico , De=Desierto , Ni=Nieve , Ve=Vegetacion , Vo=Volcan \n\n");
+            Console.WriteLine(opcion1);
+            Console.WriteLine(opcion2);
+            Console.WriteLine(opcion3);
+            Console.WriteLine("Elija una opción: ");
+
+            int dimensionMapa = Convert.ToInt32(Console.ReadLine());
+            dimensionMapa=dimensionMapa-1;
+
+            Console.WriteLine("\nIngrese cuantos meses quiere simular: ");
+            int mesesSimulacion = Convert.ToInt32(Console.ReadLine());
+
+
+            Johto regionElegida;
+            switch (dimensionMapa)
+            {
+                case 0:
+                     regionElegida = config1;
+                    break;
+                case 1:
+                    regionElegida = config2;
+                    break;
+                case 2:
+                    regionElegida = config3;
+                    break;
+                default:
+                    regionElegida = config1;
+                    break;
+            }
+
+
+            Simulador simulador = new Simulador(dimensionMapa,regionElegida,mesesSimulacion);
+
+            simulador.comenzarSimulacion();
+            
         }
     }
 }

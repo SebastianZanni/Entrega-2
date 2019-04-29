@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace Bitmon
 {
-    class Terreno
+    public class Terreno
 
     {
         public List<Bitmon> bitmonsTerreno;
-        private string tipo;
+        public string tipo;
+        public int fila;
+        public int columna;
 
         public Terreno(string tipo)
         {
@@ -26,6 +28,48 @@ namespace Bitmon
         {
             return tipo;
         }
+        public string getTipoAbrev()
+        {
+            return tipo.Substring(0, 2);
+        }
+
+        public int getNumTipoBitmon(string tipoBitmon)
+        {
+            int contador = 0;
+            foreach (Bitmon bitmon in bitmonsTerreno)
+            {
+                if (bitmon.getTipo() == tipoBitmon)
+                {
+                    contador++;
+                }
+            }
+            return contador;
+        }
+        public void setTipo(string tipoTerreno)
+        {
+            tipo = tipoTerreno;
+        }
+
+        public int getFila()
+        {
+            return fila;
+        }
+
+        public int getColumna()
+        {
+            return columna;
+        }
+
+        public void setFila(int fila)
+        {
+            this.fila = fila;
+
+        }
+
+        public void setColumna(int columna)
+        {
+            this.columna = columna;
         }
     }
+}
 
